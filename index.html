@@ -636,10 +636,27 @@
             mainContent.classList.add('hidden');
             scrollContainer.classList.remove('hidden');
             
-            // Play Star Wars theme
+            // Play Star Wars theme with better error handling
             const audio = document.getElementById('starWarsTheme');
             if (audio) {
-                audio.play().catch(err => console.log('Audio play failed:', err));
+                // Reset audio to beginning
+                audio.currentTime = 0;
+                audio.muted = false;
+                
+                // Try to play
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('Audio playing successfully');
+                        })
+                        .catch(err => {
+                            console.log('Audio play failed:', err);
+                            // Show a message or visual indicator that user needs to unmute
+                            alert('Click the speaker button in the bottom-right to enable sound! 🔊');
+                        });
+                }
             }
         });
 
@@ -650,9 +667,15 @@
         if (audioControl && audio) {
             audioControl.addEventListener('click', () => {
                 if (audio.muted) {
+                    // Unmute
                     audio.muted = false;
                     audioControl.textContent = '🔊';
+                    // Try to play if paused
+                    if (audio.paused) {
+                        audio.play().catch(err => console.log('Play on unmute failed:', err));
+                    }
                 } else {
+                    // Mute
                     audio.muted = true;
                     audioControl.textContent = '🔇';
                 }
