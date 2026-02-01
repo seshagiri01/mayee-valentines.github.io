@@ -282,6 +282,68 @@
             height: 100%;
         }
 
+        /* Audio Control Button */
+        .audio-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1001;
+            background: rgba(255, 182, 193, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--pink-glow);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 182, 193, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 105, 180, 0.6);
+        }
+
+        .audio-control:active {
+            transform: scale(0.95);
+        }
+
+        /* Audio Control Button */
+        .audio-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1001;
+            background: rgba(255, 182, 193, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--pink-glow);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 182, 193, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 105, 180, 0.6);
+        }
+
+        .audio-control:active {
+            transform: scale(0.95);
+        }
+
         /* Animations */
         @keyframes fadeInDown {
             from {
@@ -409,7 +471,7 @@
     <div class="scroll-container hidden" id="scrollContainer">
         <main>
             <canvas id="field"></canvas>
-            <div id="crawl">
+            <div id="crawl" style="font-size: 3.5rem;">
                 <p>
                     <span>⭐ A Fellowship Beyond Realms ⭐</span>
                     <br /><br />
@@ -417,9 +479,9 @@
                     <br /><br />
                     Like Frodo and Sam's journey to Mount Doom, like Aragorn's path to the throne, like the Fellowship bound by courage and hope—our journey together has just begun.
                     <br /><br />
-                    Though the seven seas separate us this Valentine's Day, you are never far from my thoughts. You are the glowglobe in my darkest moments, the star that guides me home.
+                    Though miles separate us this Valentine's Day, you are never far from my thoughts. You are the light of Eärendil in my darkest moments, the star that guides me home.
                     <br /><br />
-                    Too Cheesy haina, just attempting something for my first girlfriend.
+                    This is our Fellowship—you and me against the world. Not all who wander are lost, and wandering with you, even from afar, is the greatest adventure.
                     <br /><br />
                     So here's to our first Valentine's together, to many more chapters in our story, and to a bond that no distance can break.
                     <br /><br />
@@ -432,6 +494,10 @@
                 <source src="audio/star-wars-theme.mp3" type="audio/mpeg">
             </audio>
         </main>
+        <!-- Audio Control Button -->
+        <button class="audio-control" id="audioControl" title="Mute/Unmute">
+            🔊
+        </button>
     </div>
 
     <script>
@@ -569,7 +635,29 @@
         yesBtn3.addEventListener('click', () => {
             mainContent.classList.add('hidden');
             scrollContainer.classList.remove('hidden');
+            
+            // Play Star Wars theme
+            const audio = document.getElementById('starWarsTheme');
+            if (audio) {
+                audio.play().catch(err => console.log('Audio play failed:', err));
+            }
         });
+
+        // Audio control button
+        const audioControl = document.getElementById('audioControl');
+        const audio = document.getElementById('starWarsTheme');
+        
+        if (audioControl && audio) {
+            audioControl.addEventListener('click', () => {
+                if (audio.muted) {
+                    audio.muted = false;
+                    audioControl.textContent = '🔊';
+                } else {
+                    audio.muted = true;
+                    audioControl.textContent = '🔇';
+                }
+            });
+        }
 
         // Initialize
         createStars();
