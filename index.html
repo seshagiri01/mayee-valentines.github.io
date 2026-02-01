@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Comfortaa:wght@300;400;600&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css" />
     <style>
         :root {
             --pink-glow: #ff69b4;
@@ -266,44 +267,19 @@
             display: none !important;
         }
 
-        /* Star Wars Scroll */
+        /* Star Wars Scroll Container */
         .scroll-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: black;
             z-index: 1000;
-            perspective: 400px;
-            perspective-origin: 50% 50%;
-            overflow: hidden;
         }
 
-        .scroll-text {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 800px;
-            color: #feda4a;
-            font-family: 'Comfortaa', cursive;
-            font-size: 1.8rem;
-            line-height: 2.2;
-            text-align: justify;
-            animation: scroll 45s linear forwards;
-        }
-
-        @keyframes scroll {
-            0% {
-                top: 100%;
-                transform: translateX(-50%) translateZ(0) rotateX(25deg);
-            }
-            100% {
-                top: -150%;
-                transform: translateX(-50%) translateZ(0) rotateX(25deg);
-            }
+        .scroll-container main {
+            width: 100%;
+            height: 100%;
         }
 
         /* Animations */
@@ -431,21 +407,27 @@
 
     <!-- Star Wars Scroll (hidden initially) -->
     <div class="scroll-container hidden" id="scrollContainer">
-        <div class="scroll-text" id="scrollText">
-            <p style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">⭐ A Fellowship Beyond Realms ⭐</p>
-            
-            <p>Even the smallest person can change the course of the future. And you, my dearest companion, have changed mine in ways I never imagined.</p>
-            
-            <p style="margin-top: 40px;">Like Frodo and Sam's journey to Mount Doom, like Aragorn's path to the throne, like the Fellowship bound by courage and hope—our journey together has just begun.</p>
-            
-            <p style="margin-top: 40px;">Though miles separate us this Valentine's Day, you are never far from my thoughts. You are the light of Eärendil in my darkest moments, the star that guides me home.</p>
-            
-            <p style="margin-top: 40px;">This is our Fellowship—you and me against the world. Not all who wander are lost, and wandering with you, even from afar, is the greatest adventure.</p>
-            
-            <p style="margin-top: 40px;">So here's to our first Valentine's together, to many more chapters in our story, and to a bond that no distance can break.</p>
-            
-            <p style="margin-top: 60px; text-align: center; font-size: 2rem;">Happy Valentine's Day 💝</p>
-        </div>
+        <main>
+            <canvas id="field"></canvas>
+            <div id="crawl">
+                <p>
+                    <span>⭐ A Fellowship Beyond Realms ⭐</span>
+                    <br /><br />
+                    Even the smallest person can change the course of the future. And you, my dearest companion, have changed mine in ways I never imagined.
+                    <br /><br />
+                    Like Frodo and Sam's journey to Mount Doom, like Aragorn's path to the throne, like the Fellowship bound by courage and hope—our journey together has just begun.
+                    <br /><br />
+                    Though miles separate us this Valentine's Day, you are never far from my thoughts. You are the light of Eärendil in my darkest moments, the star that guides me home.
+                    <br /><br />
+                    This is our Fellowship—you and me against the world. Not all who wander are lost, and wandering with you, even from afar, is the greatest adventure.
+                    <br /><br />
+                    So here's to our first Valentine's together, to many more chapters in our story, and to a bond that no distance can break.
+                    <br /><br />
+                    <span>Happy Valentine's Day 💝</span>
+                </p>
+            </div>
+            <div id="overlay"></div>
+        </main>
     </div>
 
     <script>
@@ -596,5 +578,6 @@
             setTimeout(createFloatingHeart, i * 200);
         }
     </script>
+    <script src="js/stars.js"></script>
 </body>
 </html>
