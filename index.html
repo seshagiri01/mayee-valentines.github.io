@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question Across The Stars 💫</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Comfortaa:wght@300;400;600&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-glow: #ff69b4;
+            --soft-pink: #ffb3d9;
+            --peach: #ffd4b3;
+            --lavender: #e6d9ff;
+            --purple: #b388ff;
+            --deep-purple: #7c4dff;
+            --gold: #ffd700;
+            --dark-space: #1a0033;
+            --star-white: #fffafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 50%, #4a1942 100%);
+            color: var(--star-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Starfield Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Floating Hearts */
+        .heart-float {
+            position: fixed;
+            font-size: 20px;
+            animation: float-up 8s infinite;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--pink-glow), var(--peach), var(--lavender), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 10px var(--pink-glow));
+            }
+            to {
+                filter: drop-shadow(0 0 20px var(--purple));
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--soft-pink);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        /* Movie Card */
+        .movie-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: slideIn 1s ease-out;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--pink-glow);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+        }
+
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .movie-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .message-text {
+            font-size: 1.15rem;
+            color: var(--soft-pink);
+            line-height: 1.9;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Question Section */
+        .question-section {
+            text-align: center;
+            margin: 80px 0;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(179, 136, 255, 0.2));
+            border-radius: 40px;
+            border: 3px solid var(--pink-glow);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 80px rgba(255, 105, 180, 0.6);
+            }
+        }
+
+        .question-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, var(--pink-glow), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Buttons */
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.5rem;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--pink-glow), var(--purple));
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--soft-pink);
+            border: 2px solid var(--soft-pink);
+            transition: all 0.2s ease;
+        }
+
+        .btn-no:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Star Wars Scroll */
+        .scroll-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 1000;
+            perspective: 400px;
+            perspective-origin: 50% 50%;
+            overflow: hidden;
+        }
+
+        .scroll-text {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 800px;
+            color: #feda4a;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.8rem;
+            line-height: 2.2;
+            text-align: justify;
+            animation: scroll 45s linear forwards;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 100%;
+                transform: translateX(-50%) translateZ(0) rotateX(25deg);
+            }
+            100% {
+                top: -150%;
+                transform: translateX(-50%) translateZ(0) rotateX(25deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .movie-title {
+                font-size: 1.4rem;
+            }
+            
+            .movie-card {
+                padding: 30px 20px;
+            }
+            
+            .question-section {
+                padding: 40px 20px;
+            }
+            
+            .question-section h2 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                font-size: 1.2rem;
+                padding: 15px 35px;
+            }
+
+            .scroll-text {
+                font-size: 1.3rem;
+                width: 90%;
+            }
+
+            .message-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <!-- Floating Hearts -->
+    <div id="hearts-container"></div>
+
+    <div class="container" id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <h1>A Journey Written in the Stars</h1>
+            <p class="subtitle">From Arrakis to Middle-earth to a Galaxy Far, Far Away ✨</p>
+        </div>
+
+        <!-- Dune Card -->
+        <div class="movie-card">
+            <div class="movie-card-content">
+                <h2 class="movie-title">🏜️ The Path of the Desert 🏜️</h2>
+                <div class="message-text">
+                    <p>Just as Paul was not fated to be the Kwisatz Haderach, yet he rose as Muad'Dib and changed the course of the universe...</p>
+                    <p style="margin-top: 20px;">We were not destined to meet, yet here we are—across the vastness of space and time, we found each other.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Section -->
+        <div class="question-section" id="questionSection">
+            <h2>Will you be my Valentine? 💖</h2>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn">Yes! ✨</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+        </div>
+
+        <!-- Confirmation Section 1 (hidden initially) -->
+        <div class="question-section hidden" id="confirmSection1">
+            <h2>Are you really sure? 🥺</h2>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn2">Yes, I'm sure! 💕</button>
+                <button class="btn btn-no" id="noBtn2">Wait, no...</button>
+            </div>
+        </div>
+
+        <!-- Confirmation Section 2 (hidden initially) -->
+        <div class="question-section hidden" id="confirmSection2">
+            <h2>Really really sure? 💫</h2>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn3">Yes, absolutely! ✨</button>
+                <button class="btn btn-no" id="noBtn3">Hmm, maybe not...</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Star Wars Scroll (hidden initially) -->
+    <div class="scroll-container hidden" id="scrollContainer">
+        <div class="scroll-text" id="scrollText">
+            <p style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">⭐ A Fellowship Beyond Realms ⭐</p>
+            
+            <p>Even the smallest person can change the course of the future. And you, my dearest companion, have changed mine in ways I never imagined.</p>
+            
+            <p style="margin-top: 40px;">Like Frodo and Sam's journey to Mount Doom, like Aragorn's path to the throne, like the Fellowship bound by courage and hope—our journey together has just begun.</p>
+            
+            <p style="margin-top: 40px;">Though miles separate us this Valentine's Day, you are never far from my thoughts. You are the light of Eärendil in my darkest moments, the star that guides me home.</p>
+            
+            <p style="margin-top: 40px;">This is our Fellowship—you and me against the world. Not all who wander are lost, and wandering with you, even from afar, is the greatest adventure.</p>
+            
+            <p style="margin-top: 40px;">So here's to our first Valentine's together, to many more chapters in our story, and to a bond that no distance can break.</p>
+            
+            <p style="margin-top: 60px; text-align: center; font-size: 2rem;">Happy Valentine's Day 💝</p>
+        </div>
+    </div>
+
+    <script>
+        // Create starfield
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starfield.appendChild(star);
+            }
+        }
+
+        // Create floating hearts
+        function createFloatingHeart() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            
+            const heartSymbols = ['💖', '💕', '💗', '💓', '💝', '✨', '⭐', '🌟'];
+            heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        // Button interactions
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn2 = document.getElementById('yesBtn2');
+        const noBtn2 = document.getElementById('noBtn2');
+        const yesBtn3 = document.getElementById('yesBtn3');
+        const noBtn3 = document.getElementById('noBtn3');
+        const questionSection = document.getElementById('questionSection');
+        const confirmSection1 = document.getElementById('confirmSection1');
+        const confirmSection2 = document.getElementById('confirmSection2');
+        const mainContent = document.getElementById('mainContent');
+        const scrollContainer = document.getElementById('scrollContainer');
+        
+        let yesBtnSize = 1;
+        
+        // First question - No button behavior
+        noBtn.addEventListener('mouseenter', () => {
+            // Increase yes button size
+            yesBtnSize += 0.15;
+            yesBtn.style.transform = `scale(${yesBtnSize})`;
+            
+            // Move no button to random position
+            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Eventually hide the no button after several attempts
+            if (yesBtnSize > 2.5) {
+                noBtn.classList.add('hidden');
+            }
+        });
+        
+        // First Yes button - show confirmation 1
+        yesBtn.addEventListener('click', () => {
+            questionSection.classList.add('hidden');
+            confirmSection1.classList.remove('hidden');
+        });
+
+        let yesBtnSize2 = 1;
+        
+        // Confirmation 1 - No button behavior
+        noBtn2.addEventListener('mouseenter', () => {
+            yesBtnSize2 += 0.15;
+            yesBtn2.style.transform = `scale(${yesBtnSize2})`;
+            
+            const maxX = window.innerWidth - noBtn2.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn2.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn2.style.position = 'fixed';
+            noBtn2.style.left = randomX + 'px';
+            noBtn2.style.top = randomY + 'px';
+            
+            if (yesBtnSize2 > 2.5) {
+                noBtn2.classList.add('hidden');
+            }
+        });
+        
+        // Second Yes button - show confirmation 2
+        yesBtn2.addEventListener('click', () => {
+            confirmSection1.classList.add('hidden');
+            confirmSection2.classList.remove('hidden');
+        });
+
+        let yesBtnSize3 = 1;
+        
+        // Confirmation 2 - No button behavior
+        noBtn3.addEventListener('mouseenter', () => {
+            yesBtnSize3 += 0.15;
+            yesBtn3.style.transform = `scale(${yesBtnSize3})`;
+            
+            const maxX = window.innerWidth - noBtn3.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn3.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn3.style.position = 'fixed';
+            noBtn3.style.left = randomX + 'px';
+            noBtn3.style.top = randomY + 'px';
+            
+            if (yesBtnSize3 > 2.5) {
+                noBtn3.classList.add('hidden');
+            }
+        });
+        
+        // Final Yes button - show Star Wars scroll
+        yesBtn3.addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            scrollContainer.classList.remove('hidden');
+        });
+
+        // Initialize
+        createStars();
+        
+        // Create hearts periodically
+        setInterval(createFloatingHeart, 800);
+        
+        // Create initial batch
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createFloatingHeart, i * 200);
+        }
+    </script>
+</body>
+</html>
